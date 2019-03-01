@@ -5,7 +5,10 @@
 	<script src="./js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>Tableau des scores</h1>
+	<div class="page-header">
+		<h1>Tableau des scores</h1>
+	</div>
+	<div class="container">
 	<table class="table table-striped table-hover">
 		<tr>
 			<th>Pseudo</th><th>nom IRL</th><th>SCORE</th><th>challenges complétés</th><th>points depuis le 01/03</th>
@@ -62,6 +65,7 @@ foreach(load_profiles() as $profile){
 }
 
 ?>
-	</table>
+		</table>
+	</div>
 </body>
 </html>
