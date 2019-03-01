@@ -1,3 +1,7 @@
+<?php
+	include('../php/simple_html_dom.php');
+	$date='01/03';
+?>
 <html>
 <head>
 	<title>Root-Me101 : Tableau des Scores</title>
@@ -5,16 +9,14 @@
 	<script src="./js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="page-header">
-		<h1>Tableau des scores</h1>
-	</div>
-	<div class="container">
+	<h1 class="text-center">Tableau des scores</h1>
+	<br><br>
 	<table class="table table-striped table-hover">
 		<tr>
-			<th>Pseudo</th><th>nom IRL</th><th>SCORE</th><th>challenges complétés</th><th>points depuis le 01/03</th>
+			<th>Pseudo</th><th>nom IRL</th><th>SCORE</th><th>challenges complétés</th><th>points depuis le <?php echo($date); ?></th>
 		</tr>
 <?php
-include('../php/simple_html_dom.php');
+
 
 function get_RootMe_score($pseudo){
 	$url="https://www.root-me.org/".$pseudo;
@@ -65,7 +67,10 @@ foreach(load_profiles() as $profile){
 }
 
 ?>
-		</table>
-	</div>
+	</table>
+	<br><br>
+	<footer class="page-footer font-small text-center">
+		<p class="text-center font-small">Romain du Marais - <a href="https://github.com/hackheera/root-me101">github</a></p>
+	</footer>
 </body>
 </html>
