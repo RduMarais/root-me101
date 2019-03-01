@@ -63,7 +63,11 @@ function load_profiles(){
 }
 foreach(load_profiles() as $profile){
 	$score = get_RootMe_score($profile[0]);
-	echo('<tr><td><a href="https://www.root-me.org/'.$profile[2].'">'.$profile[2].'</a></td><td>'.$profile[1].'</td><td>'.$score.'</td><td>'.get_RootMe_challs($profile[0]).'</td><td>'.((int) $score - (int) $profile[3]).'</td></tr>');
+	echo('<tr><td>');
+	if($profile[2] !== 'anonyme'){
+		echo('<a href="https://www.root-me.org/'.$profile[0].'">'.$profile[2].'</a>');
+	}
+	echo('</td><td>'.$profile[1].'</td><td>'.$score.'</td><td>'.get_RootMe_challs($profile[0]).'</td><td>'.((int) $score - (int) $profile[3]).'</td></tr>');
 }
 
 ?>
