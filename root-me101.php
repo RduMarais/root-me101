@@ -1,6 +1,7 @@
 <?php
-	include('../php/simple_html_dom.php');
-	$date='01/03';
+	
+	$date='04/03';
+	
 ?>
 <html>
 <head>
@@ -16,7 +17,7 @@
 			<th>Pseudo</th><th>nom IRL</th><th>SCORE</th><th>challenges complétés</th><th>points depuis le <?php echo($date); ?></th>
 		</tr>
 <?php
-
+include('../php/simple_html_dom.php');
 
 function get_RootMe_score($pseudo){
 	$url="https://www.root-me.org/".$pseudo;
@@ -40,8 +41,10 @@ function get_RootMe_challs($pseudo){
 	foreach($html->find('ul') as $element){
 		$line1=$element->find('li',0);
 		$line2=$line1->find('span',0);
-		if ($line2->class === 'color1 tl') {
-			$challs=$line2->first_child()->plaintext;
+		if (is_null($line2) === FALSE){
+		       if($line2->class === 'color1 tl') {
+			       $challs=$line2->first_child()->plaintext;
+		       }
 		}
 	}
 	return $challs;

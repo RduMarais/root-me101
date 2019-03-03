@@ -24,19 +24,29 @@ function get_RootMe_challs($pseudo){
 
 	$html=file_get_html($url);
 	$challs=array();
-	foreach($html->find('div') as $element){
-		if($element->class="small-12 medium-6 columns"){
-			#echo('element = '.$element->plaintext);
-			$line1=$element->find('div');
-			if($line1 !== FALSE && $line->class="panel animated_box"){
-				echo($line1);
-				$line4=$line1->find('span')->plaintext;
-				echo($line4);
+	foreach($html->find('div',33) as $element){
+		if(is_null($element->class) === FALSE && $element->class="t-body tb-padding"){
+			#echo('here : '.$element->first_child());
+			foreach($element->find('div') as $categorie){
+				#if(is_null($categorie->class) === FALSE && $categorie->class="medium-6"){
+				#	echo('categ : '.$categorie->first_child()->first_child());
+				#}
+				#echo(' categ:'.$categorie);
+				#ici on a tout les div de niveau column
+				#donc on va éviter le premier, et dans chacun récupérer juste le nombre de points
+				$sscateg=$categorie->find('div');
+				if(is_null($sscateg) === FALSE){
+					echo(' sscateg:'.$sscateg);
+					$points = $sscateg->find('span');
+					if(is_null('span') === FALSE){
+						echo(' pts : '.$points);
+					}
+				}
 			}
-			array_push($challs,$line4);
 		}
 	}
 	return $challs;
+	echo($challs);
 }
 
 function load_profiles(){
