@@ -36,7 +36,7 @@ function get_RootMe_score($pseudo){
 			#echo('score = '.$score.'<br>');
 		}
 	}
-	return $score;
+	return intval($score);
 }
 function get_RootMe_challs($pseudo){
 	$url="https://www.root-me.org/".$pseudo.'?inc=score';
