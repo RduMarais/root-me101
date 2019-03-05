@@ -16,7 +16,13 @@
 			<th>Pseudo</th><th>nom IRL</th><th>SCORE</th><th>challenges complétés</th><th>points depuis le <?php echo($date); ?></th>
 		</tr>
 <?php
+        
+        $user = "rmichon";
+        $pass = "blablabla";
+        $dbh = new PDO('mysql:host=localhost;dbname=rootme', $user, $pass);
 
+        // la bdd contient une table `scores` qui contient les attributs suivants:
+        // UNIQUE INT id, BOOLEAN is_anonymous, VARCHAR(255) nickname, VARCHAR(255) realname, INT initial_score, INT new_score, VARCHAR(32) challs, DATETIME last_fetch
 
 function get_RootMe_score($pseudo){
 	$url="https://www.root-me.org/".$pseudo;
@@ -30,7 +36,7 @@ function get_RootMe_score($pseudo){
 			#echo('score = '.$score.'<br>');
 		}
 	}
-	return $score;
+	return intval($score);
 }
 function get_RootMe_challs($pseudo){
 	$url="https://www.root-me.org/".$pseudo.'?inc=score';
@@ -47,28 +53,25 @@ function get_RootMe_challs($pseudo){
 	return $challs;
 }
 
-function load_profiles(){
-	$row = 1;
-	$profiles=array();
-	if (($handle = fopen("/home/rmichon/participants.csv", "r")) !== FALSE) {
-		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-			$num = count($data);
-			array_push($profiles,$data);
-			$row++;
-		}
-		fclose($handle);
-	}
+// maj
+foreach($dbh->query('SELECT id, nickname from scores WHERE last_fetch < DATE_SUB(NOW(), 30 MINUTE)') as $row) {
+    $score = get_RootMe_score($row['nickname']);
+    $challs = get_RootMe_challs($row['nickname']);
 
-	return $profiles;
+    $req = "UPDATE scores SET new_score = :score, challs = :challs, last_fetch = :last_fetch WHERE id = :id";
+    $sth = $dbh->prepare($req);
+    $sth->execute(array(":score" => $score, ":challs" => $challs, ":last_fetch" => "NOW()", ":id" => $row['id']));
 }
-foreach(load_profiles() as $profile){
-	$score = get_RootMe_score($profile[0]);
-	echo('<tr><td>');
-	if($profile[2] !== 'anonyme'){
-		echo('<a href="https://www.root-me.org/'.$profile[0].'">'.$profile[2].'</a>');
-	}
-	echo('</td><td>'.$profile[1].'</td><td>'.$score.'</td><td>'.get_RootMe_challs($profile[0]).'</td><td>'.((int) $score - (int) $profile[3]).'</td></tr>');
-}
+
+// affichage
+foreach($dbh->query('SELECT * from scores') as $row) {
+    echo "<tr>
+        <td>" . ($row['is_anonymous'] ? "" : "<a href=\"https://www.root-me.org/" . $row['nickname'] . "\">" . $row['realname'] . "</a>") . "</td>
+        <td> " . $row['new_score'] . "</td>
+        <td> " . $row['challs'] . "</td>
+        <td>" . ($row['new_score'] - ['initial_score']) . "</td>
+        </tr>";         
+        }
 
 ?>
 	</table>
