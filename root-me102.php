@@ -37,10 +37,11 @@ function get_RootMe_challs($pseudo){
 				$sscateg=$categorie->find('div');
 				if(is_null($sscateg) === FALSE){
 					echo(' sscateg:'.$sscateg);
-					$points = $sscateg->find('span');
-					if(is_null('span') === FALSE){
-						echo(' pts : '.$points);
-					}
+					#print_r($sscateg);
+					#$points = $sscateg->find('span');
+					#if(is_null('span') === FALSE){
+					#	echo(' pts : '.$points);
+					#}
 				}
 			}
 		}
