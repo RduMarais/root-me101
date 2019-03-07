@@ -3,10 +3,10 @@ score board for Root-Me
 
 ## RÉGLES
  * le GAME commence le 04/03 à minuit, se termine le 1er mai 00h00.
- * dernier (en nombre de points) paye un domac/kebab au premier (en nombre de points) (ou toute autre malbouffe).
- * avant-dernier (en nombre de points) paye un verre au 2e (en nombre de points) (ou toute autre boisson).
- * dernier (en nombre de challenges) paye un domac/kebab au premier (en nombre de challenges) (ou toute autre malbouffe).
- * avant-dernier (en nombre de challenges) paye un verre au 2e (en nombre de challenges) (ou toute autre boisson).
+ * dernier (en nombre de points) paye un verre au premier (en nombre de points).
+ * avant-dernier (en nombre de points) paye un shot au 2e (en nombre de points).
+ * dernier (en nombre de challenges) paye un verre au premier (en nombre de challenges).
+ * avant-dernier (en nombre de challenges) paye un shot au 2e (en nombre de challenges).
  * les doublons sont excusés, ie. personne ne paye deux fois un verre/domac ou se fait payer deux verres/domac.
 
 ## how-to
